@@ -3,10 +3,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   
   def index
-    if logged_in?
-      @task = current_user.tasks.build  # form_with 用
-      @tasks = current_user.tasks.order(id: :desc).page(params[:page])
-    end
+    @task = current_user.tasks.build  # form_with 用
+    @tasks = current_user.tasks.order(id: :desc).page(params[:page])
   end
 
   def show
@@ -48,8 +46,7 @@ class TasksController < ApplicationController
     flash[:success] = 'Task は正常に削除されました'
     redirect_to tasks_url
   end
-end
-
+  
   private
   
   def set_task
@@ -60,3 +57,5 @@ end
   def task_params
     params.require(:task).permit(:content,:status)
   end
+end
+
